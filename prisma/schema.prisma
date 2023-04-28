@@ -14,7 +14,7 @@ model Tourist {
   id             String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   First_name     String
   Last_name      String
-  Phone_number   Int         @db.Integer
+  Phone_number   BigInt      @db.BigInt
   Mail_ID        String      @unique
   Password       String
   City           String
@@ -23,12 +23,10 @@ model Tourist {
   Review         Review[]
   history        history[]
   Favorites      Favorites[]
-
-  @@index([id])
 }
 
 model Guide {
-  Guide_ID     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  Guide_ID     String @id @default(uuid()) @db.Uuid
   First_name   String
   Last_name    String
   ID_Proof     String
@@ -36,10 +34,8 @@ model Guide {
   Password     String
   Address      String
   City         String
-  Phone_number Int    @db.Integer
+  Phone_number Int
   Experience   String
-
-  @@index([Guide_ID])
 }
 
 model Destination {
@@ -51,8 +47,6 @@ model Destination {
   Places      Places[]
   history     history[]
   Favorites   Favorites[]
-
-  @@index([ID])
 }
 
 model Places {
@@ -71,8 +65,6 @@ model Review {
   Rating      Int
   Review      String  @db.VarChar(200)
   Destination String
-
-  @@index([ID])
 }
 
 model history {
@@ -82,8 +74,6 @@ model history {
   Trip_status Boolean
   Destination Destination @relation(fields: [D_ID], references: [ID])
   D_ID        String      @db.Uuid
-
-  @@index([ID])
 }
 
 model Weather {
@@ -94,16 +84,12 @@ model Weather {
   Humidity    Float
   Date        DateTime
   Day         String
-
-  @@index([ID])
 }
 
 model Favorites {
-  Fav_ID      Int         @unique @default(autoincrement())
-  Mail_ID     Tourist     @relation(fields: [T_ID], references: [Mail_ID])
+  Fav_ID      String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  Tourist_id  Tourist     @relation(fields: [T_ID], references: [id])
   T_ID        String      @db.Uuid
   Destination Destination @relation(fields: [D_ID], references: [ID])
   D_ID        String      @db.Uuid
-
-  @@index([Fav_ID])
 }
