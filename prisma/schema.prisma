@@ -88,7 +88,7 @@ model Weather {
 
 model Favorites {
   Fav_ID      String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  Tourist_id  Tourist     @relation(fields: [T_ID], references: [id])
+  Tourist  Tourist     @relation(fields: [T_ID], references: [id])
   T_ID        String      @db.Uuid
   Destination Destination @relation(fields: [D_ID], references: [ID])
   D_ID        String      @db.Uuid
