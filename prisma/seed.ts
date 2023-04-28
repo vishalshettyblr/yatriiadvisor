@@ -1,6 +1,6 @@
 import {Prisma,PrismaClient} from "@prisma/client"
 const client = new PrismaClient();
-const getUser =() :Prisma.TouristCreateInput[]=>[
+const gettourist =() :Prisma.TouristCreateInput[]=>[
     {
         First_name:"vishal",
         Last_name:"shetty",
@@ -47,8 +47,27 @@ const getUser =() :Prisma.TouristCreateInput[]=>[
     }
 ]
 
+const getreview =(touristId:Prisma.TouristCreateNestedOneWithoutReviewInput) :Prisma.ReviewCreateInput[]=>[
+    {
+        Rating:5,
+        Review:"excellent",
+        Destination:"goa",
+        Tourist:{
+            connect:touristId
+        }
+    }
+]
+
+
+
+
+
+
+
+
+
 const main = ()=>{
-    return Promise.all(getUser() .map((touristinput)=>client.tourist.create({
+    return Promise.all(gettourist() .map((touristinput)=>client.tourist.create({
         data:touristinput
     })))
 }
