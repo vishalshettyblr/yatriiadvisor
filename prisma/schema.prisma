@@ -92,4 +92,5 @@ model Favorites {
   T_ID        String      @db.Uuid
   Destination Destination @relation(fields: [D_ID], references: [ID])
   D_ID        String      @db.Uuid
+  name        String
 }
