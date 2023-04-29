@@ -81,7 +81,7 @@ model Weather {
   Places      Places   @relation(fields: [Place_name], references: [ID])
   Place_name  String   @db.Uuid
   Temperature String
-  Humidity    Float
+  Humidity    String
   Date        DateTime
   Day         String
 }
